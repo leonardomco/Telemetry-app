@@ -47,7 +47,7 @@ PAGE_LABELS = {
     "English": {
         "home": "Home",
         "telemetry": "Telemetry",
-        "info": "Information"
+        "info": "Informations"
     }
 }
 
@@ -61,7 +61,7 @@ def home():
         "Français": {
             "title": "Bienvenue sur mon application de télémétrie",
             "subtitle": "Ceci est la page principale.",
-            "telemetry": "Pour accéder à la télémétrie, cliquez sur « Telemetrie » dans la barre latérale.",
+            "telemetry": "Pour accéder à la télémétrie, cliquez sur « Télémetrie » dans la barre latérale.",
             "info": "Pour obtenir des informations, cliquez sur « Informations » dans la barre latérale."
         },
         "English": {
@@ -86,4 +86,5 @@ telemetry_page = st.Page("pages/1_Telemetry.py", title=labels["telemetry"],)
 info_page = st.Page("pages/2_Info.py", title=labels["info"])
 
 st.navigation([home_page, telemetry_page, info_page]).run()
+
 
