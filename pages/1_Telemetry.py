@@ -12,7 +12,7 @@ lang = st.session_state.lang
 
 # Set translation dictionary AND store it in session_state
 T = {
-    "title": {"Français": "Télémetrie Formule 1", "English": "Formula 1 Telemetry"},
+    "title": {"Français": "Télémétrie Formule 1", "English": "Formula 1 Telemetry"},
     "year": {"Français": "Année", "English": "Year"},
     "gp": {"Français": "Grand Prix", "English": "Grand Prix"},
     "session": {"Français": "Session", "English": "Session"},
@@ -36,6 +36,58 @@ T = {
         "Français": "Sélectionnez et confirmez une session.",
         "English": "Select and confirm a session."
     },
+    # --- Graph Labels Translation ---
+    "dist": {"Français": "Distance (m)", "English": "Distance (m)"},
+    
+    "traj_title": {"Français": "Trajectoire", "English": "Track Map / Trajectory"},
+    "traj_x": {"Français": "Coordonnées X", "English": "X Coordinates"},
+    "traj_y": {"Français": "Coordonnées Y", "English": "Y Coordinates"},
+    
+    "alt_title": {"Français": "Altitude", "English": "Altitude"},
+    "alt_y": {"Français": "Altitude (m)", "English": "Altitude (m)"},
+    "alt_hover": {"Français": "Distance: %{x:.1f} m<br>Altitude: %{y:.1f} m<extra></extra>", "English": "Distance: %{x:.1f} m<br>Altitude: %{y:.1f} m<extra></extra>"},
+    
+    "vit_title": {"Français": "Vitesse", "English": "Speed"},
+    "vit_y": {"Français": "Vitesse (m/s)", "English": "Speed (m/s)"},
+    "vit_hover": {"Français": "Distance: %{x:.1f} m<br>Vitesse: %{y:.1f} m/s<extra></extra>", "English": "Distance: %{x:.1f} m<br>Speed: %{y:.1f} m/s<extra></extra>"},
+    
+    "at_title": {"Français": "Accélération tangentielle", "English": "Longitudinal Acceleration"},
+    "at_y": {"Français": "Accélération tangentielle (m/s²)", "English": "Longitudinal Acceleration (m/s²)"},
+    "at_hover": {"Français": "Distance: %{x:.1f} m<br>A_t: %{y:.1f} m/s²<extra></extra>", "English": "Distance: %{x:.1f} m<br>A_t: %{y:.1f} m/s²<extra></extra>"},
+    
+    "an_title": {"Français": "Accélération normale", "English": "Lateral Acceleration"},
+    "an_y": {"Français": "Accélération normale (m/s²)", "English": "Lateral Acceleration (m/s²)"},
+    "an_hover": {"Français": "Distance: %{x:.1f} m<br>A_n: %{y:.1f} m/s²<extra></extra>", "English": "Distance: %{x:.1f} m<br>A_n: %{y:.1f} m/s²<extra></extra>"},
+    
+    "av_title": {"Français": "Accélération verticale", "English": "Vertical Acceleration"},
+    "av_y": {"Français": "Accélération verticale (m/s²)", "English": "Vertical Acceleration (m/s²)"},
+    "av_hover": {"Français": "Distance: %{x:.1f} m<br>A_v: %{y:.1f} m/s²<extra></extra>", "English": "Distance: %{x:.1f} m<br>A_v: %{y:.1f} m/s²<extra></extra>"},
+    
+    "port_title": {"Français": "Portance", "English": "Downforce"},
+    "port_y": {"Français": "Portance (N)", "English": "Downforce (N)"},
+    "port_name": {"Français": "Portance moyenne", "English": "Mean Downforce"},
+    "port_hover": {"Français": "Distance: %{x:.1f} m<br>Portance: %{y:.1f} N<extra></extra>", "English": "Distance: %{x:.1f} m<br>Downforce: %{y:.1f} N<extra></extra>"},
+    
+    "train_title": {"Français": "Trainée", "English": "Aerodynamic Drag"},
+    "train_y": {"Français": "Trainée (N)", "English": "Drag (N)"},
+    "train_name": {"Français": "Trainée moyenne", "English": "Mean Drag"},
+    "train_hover": {"Français": "Distance: %{x:.1f} m<br>Trainée: %{y:.1f} N<extra></extra>", "English": "Distance: %{x:.1f} m<br>Drag: %{y:.1f} N<extra></extra>"},
+    
+    "frot_title": {"Français": "Force de frottement au roulement", "English": "Rolling Resistance Force"},
+    "frot_y": {"Français": "Frottement de roulement (N)", "English": "Rolling Resistance (N)"},
+    "frot_name": {"Français": "Frottement moy", "English": "Mean Resistance"},
+    "frot_hover": {"Français": "Distance: %{x:.1f} m<br>Frottement: %{y:.1f} N<extra></extra>", "English": "Distance: %{x:.1f} m<br>Resistance: %{y:.1f} N<extra></extra>"},
+    
+    "mot_title": {"Français": "Force motrice", "English": "Traction Force"},
+    "mot_y": {"Français": "Force motrice (N)", "English": "Traction Force (N)"},
+    "mot_name": {"Français": "Force motrice moy", "English": "Mean Traction Force"},
+    "mot_hover": {"Français": "Distance: %{x:.1f} m<br>Force motrice: %{y:.1f} N<extra></extra>", "English": "Distance: %{x:.1f} m<br>Traction Force: %{y:.1f} N<extra></extra>"},
+    
+    "frein_title": {"Français": "Force de freinage", "English": "Braking Force"},
+    "frein_y": {"Français": "Force de freinage (N)", "English": "Braking Force (N)"},
+    "frein_name": {"Français": "Freinage moy", "English": "Mean Braking Force"},
+    "frein_hover": {"Français": "Distance: %{x:.1f} m<br>Freinage: %{y:.1f} N<extra></extra>", "English": "Distance: %{x:.1f} m<br>Braking Force: %{y:.1f} N<extra></extra>"}
+
 }
 st.session_state.T = T
 
@@ -298,7 +350,7 @@ if load_btn:
             X = track[:, 0]
             Y = track[:, 1]
 
-            st.subheader('Trajectoire')
+            st.subheader(T["traj_title"][lang])
             fig_traj = go.Figure()
 
             fig_traj.add_trace(go.Scatter(
@@ -353,8 +405,8 @@ if load_btn:
                     ))
 
             fig_traj.update_layout(
-                xaxis_title="Coordonnées X",
-                yaxis_title="Coordonnées Y",
+                xaxis_title=T["traj_x"][lang],
+                yaxis_title=T["traj_y"][lang],
                 width=800,
                 height=600
             )
@@ -366,7 +418,7 @@ if load_btn:
             # -----------------------------------------------------------------
             #  ALTITUDE
             # -----------------------------------------------------------------
-            st.subheader("Altitude")
+            st.subheader(T["alt_title"][lang])
 
             fig_alt = go.Figure()
             fig_alt.add_trace(go.Scatter(
@@ -380,7 +432,7 @@ if load_btn:
             for _, row in df_corners.iterrows():
                 fig_alt.add_vline(
                     x=row["Distance"],
-                    line=dict(color="white", dash="dash", width=1),
+                    line=dict(color="gray", dash="dash", width=1),
                     opacity=1
                 )
                 fig_alt.add_annotation(
@@ -394,8 +446,8 @@ if load_btn:
                 )
 
             fig_alt.update_layout(
-                xaxis_title="Distance (m)",
-                yaxis_title="Altitude (m)",
+                xaxis_title=T["dist"][lang],
+                yaxis_title=T["alt_y"][lang],
                 width=800,
                 height=600,
                 hovermode='x unified',
@@ -403,7 +455,7 @@ if load_btn:
             )
 
             fig_alt.update_traces(
-                hovertemplate="Distance: %{x:.1f} m<br>Altitude: %{y:.1f} m<extra></extra>"
+                hovertemplate=T["alt_hover"][lang]
             )
 
             st.plotly_chart(fig_alt, use_container_width=True)
@@ -411,7 +463,7 @@ if load_btn:
             # -----------------------------------------------------------------
             #  VITESSE
             # -----------------------------------------------------------------
-            st.subheader("Vitesse")
+            st.subheader(T["vit_title"][lang])
 
             fig_vit = go.Figure()
             vx_ms = data["vx"]
@@ -427,7 +479,7 @@ if load_btn:
             for _, row in df_corners.iterrows():
                 fig_vit.add_vline(
                     x=row["Distance"],
-                    line=dict(color="white", dash="dash", width=1),
+                    line=dict(color="gray", dash="dash", width=1),
                     opacity=1
                 )
                 fig_vit.add_annotation(
@@ -441,24 +493,22 @@ if load_btn:
                 )
 
             fig_vit.update_layout(
-                xaxis_title="Distance (m)",
-                yaxis_title="Vitesse (m/s)",
+                xaxis_title=T["dist"][lang],
+                yaxis_title=T["vit_y"][lang],
                 width=800,
                 height=600,
                 hovermode='x unified',
                 plot_bgcolor="rgba(0,0,0,0)"
             )
 
-            fig_vit.update_traces(
-                hovertemplate="Distance: %{x:.1f} m<br>Vitesse: %{y:.1f} m/s<extra></extra>"
-            )
+            fig_vit.update_traces(hovertemplate=T["vit_hover"][lang])
 
             st.plotly_chart(fig_vit, use_container_width=True)
 
             # -----------------------------------------------------------------
             #  ACCÉLÉRATION TANGENTIELLE
             # -----------------------------------------------------------------
-            st.subheader("Accélération tangentielle")
+            st.subheader(T["at_title"][lang])
 
             fig_a_t = go.Figure()
 
@@ -473,7 +523,7 @@ if load_btn:
             for _, row in df_corners.iterrows():
                 fig_a_t.add_vline(
                     x=row["Distance"],
-                    line=dict(color="white", dash="dash", width=1),
+                    line=dict(color="gray", dash="dash", width=1),
                     opacity=1
                 )
                 fig_a_t.add_annotation(
@@ -487,24 +537,22 @@ if load_btn:
                 )
 
             fig_a_t.update_layout(
-                xaxis_title="Distance (m)",
-                yaxis_title="Accélération tangentielle (m/s²)",
+                xaxis_title=T["dist"][lang], 
+                yaxis_title=T["at_y"][lang],
                 width=800,
                 height=600,
                 hovermode='x unified',
                 plot_bgcolor='rgba(0,0,0,0)'
             )
 
-            fig_a_t.update_traces(
-                hovertemplate="Distance: %{x:.1f} m<br>A_t: %{y:.1f} m/s²<extra></extra>"
-            )
+            fig_a_t.update_traces(hovertemplate=T["at_hover"][lang])
 
             st.plotly_chart(fig_a_t, use_container_width=True)
 
             # -----------------------------------------------------------------
             #  ACCÉLÉRATION NORMALE
             # -----------------------------------------------------------------
-            st.subheader("Accélération normale")
+            st.subheader(T["an_title"][lang])
 
             fig_a_n = go.Figure()
 
@@ -519,7 +567,7 @@ if load_btn:
             for _, row in df_corners.iterrows():
                 fig_a_n.add_vline(
                     x=row["Distance"],
-                    line=dict(color="white", dash="dash", width=1),
+                    line=dict(color="gray", dash="dash", width=1),
                     opacity=1
                 )
                 fig_a_n.add_annotation(
@@ -533,24 +581,22 @@ if load_btn:
                 )
 
             fig_a_n.update_layout(
-                xaxis_title="Distance (m)",
-                yaxis_title="Accélération normale (m/s²)",
+                xaxis_title=T["dist"][lang], 
+                yaxis_title=T["an_y"][lang],
                 width=800,
                 height=600,
                 hovermode='x unified',
                 plot_bgcolor='rgba(0,0,0,0)'
             )
 
-            fig_a_n.update_traces(
-                hovertemplate="Distance: %{x:.1f} m<br>A_n: %{y:.1f} m/s²<extra></extra>"
-            )
+            fig_a_n.update_traces(hovertemplate=T["an_hover"][lang])
 
             st.plotly_chart(fig_a_n, use_container_width=True)
 
             # -----------------------------------------------------------------
             #  ACCÉLÉRATION VERTICALE
             # -----------------------------------------------------------------
-            st.subheader("Accélération verticale")
+            st.subheader(T["av_title"][lang])
 
             fig_a_v = go.Figure()
 
@@ -565,7 +611,7 @@ if load_btn:
             for _, row in df_corners.iterrows():
                 fig_a_v.add_vline(
                     x=row["Distance"],
-                    line=dict(color="white", dash="dash", width=1),
+                    line=dict(color="gray", dash="dash", width=1),
                     opacity=1
                 )
                 fig_a_v.add_annotation(
@@ -579,24 +625,22 @@ if load_btn:
                 )
 
             fig_a_v.update_layout(
-                xaxis_title="Distance (m)",
-                yaxis_title="Accélération verticale (m/s²)",
+                xaxis_title=T["dist"][lang],
+                yaxis_title=T["av_y"][lang],
                 width=800,
                 height=600,
                 hovermode='x unified',
                 plot_bgcolor='rgba(0,0,0,0)'
             )
 
-            fig_a_v.update_traces(
-                hovertemplate="Distance: %{x:.1f} m<br>A_v: %{y:.1f} m/s²<extra></extra>"
-            )
+            fig_a_v.update_traces(hovertemplate=T["av_hover"][lang])
 
             st.plotly_chart(fig_a_v, use_container_width=True)
 
             # -----------------------------------------------------------------
             #  PORTANCE
             # -----------------------------------------------------------------
-            st.subheader("Portance")
+            st.subheader(T["port_title"][lang])
 
             fig_portance = go.Figure()
 
@@ -606,7 +650,7 @@ if load_btn:
                 y=data["Portance_moy"],
                 mode='lines',
                 line=dict(color='blue', width=2),
-                name='Portance moyenne'
+                name=T["port_name"][lang]
             ))
 
             # Zone min-max
@@ -623,7 +667,7 @@ if load_btn:
             for _, row in df_corners.iterrows():
                 fig_portance.add_vline(
                     x=row["Distance"],
-                    line=dict(color="white", dash="dash", width=1),
+                    line=dict(color="gray", dash="dash", width=1),
                     opacity=1
                 )
                 fig_portance.add_annotation(
@@ -637,8 +681,8 @@ if load_btn:
                 )
 
             fig_portance.update_layout(
-                xaxis_title="Distance (m)",
-                yaxis_title="Portance (N)",
+                xaxis_title=T["dist"][lang], 
+                yaxis_title=T["port_y"][lang],
                 width=800,
                 height=600,
                 hovermode='x unified',
@@ -646,16 +690,14 @@ if load_btn:
                 showlegend=False
             )
 
-            fig_portance.update_traces(
-                hovertemplate="Distance: %{x:.1f} m<br>Portance: %{y:.1f} N<extra></extra>"
-            )
+            fig_portance.update_traces(hovertemplate=T["port_hover"][lang])
 
             st.plotly_chart(fig_portance, use_container_width=True)
 
             # -----------------------------------------------------------------
             #  TRAÎNÉE
             # -----------------------------------------------------------------
-            st.subheader("Trainée")
+            st.subheader(T["train_title"][lang])
 
             fig_trainee = go.Figure()
 
@@ -664,7 +706,7 @@ if load_btn:
                 y=data["Trainée_moy"],
                 mode='lines',
                 line=dict(color='blue', width=2),
-                name='Trainée moyenne'
+                name=T["train_name"][lang]
             ))
 
             fig_trainee.add_trace(go.Scatter(
@@ -680,7 +722,7 @@ if load_btn:
             for _, row in df_corners.iterrows():
                 fig_trainee.add_vline(
                     x=row["Distance"],
-                    line=dict(color="white", dash="dash", width=1),
+                    line=dict(color="gray", dash="dash", width=1),
                     opacity=1
                 )
                 fig_trainee.add_annotation(
@@ -694,8 +736,8 @@ if load_btn:
                 )
 
             fig_trainee.update_layout(
-                xaxis_title="Distance (m)",
-                yaxis_title="Trainée (N)",
+                xaxis_title=T["dist"][lang], 
+                yaxis_title=T["train_y"][lang],
                 width=800,
                 height=600,
                 hovermode='x unified',
@@ -703,16 +745,14 @@ if load_btn:
                 showlegend=False
             )
 
-            fig_trainee.update_traces(
-                hovertemplate="Distance: %{x:.1f} m<br>Trainée: %{y:.1f} N<extra></extra>"
-            )
+            fig_trainee.update_traces(hovertemplate=T["train_hover"][lang])
 
             st.plotly_chart(fig_trainee, use_container_width=True)
 
             # -----------------------------------------------------------------
             #  FORCE DE FROTTEMENT DE ROULEMENT
             # -----------------------------------------------------------------
-            st.subheader("Force de frottement au roulement")
+            st.subheader(T["frot_title"][lang])
 
             fig_fr = go.Figure()
 
@@ -721,13 +761,13 @@ if load_btn:
                 y=data["Force de frottement de roulement moy"],
                 mode='lines',
                 line=dict(color='blue', width=2),
-                name='Frottement moy'
+                name=T["frot_name"][lang]
             ))
 
             fig_fr.add_trace(go.Scatter(
                 x=pd.concat([data["Distance"], data["Distance"][::-1]]),
                 y=pd.concat([data["Force de frottement de roulement max"],
-                             data["Force de frottement de roulement min"][::-1]]),
+                            data["Force de frottement de roulement min"][::-1]]),
                 fill='toself',
                 fillcolor='rgba(0, 0, 255, 0.2)',
                 line=dict(color='rgba(255,255,255,0)'),
@@ -737,7 +777,7 @@ if load_btn:
             for _, row in df_corners.iterrows():
                 fig_fr.add_vline(
                     x=row["Distance"],
-                    line=dict(color="white", dash="dash", width=1),
+                    line=dict(color="gray", dash="dash", width=1),
                     opacity=1
                 )
                 fig_fr.add_annotation(
@@ -751,8 +791,8 @@ if load_btn:
                 )
 
             fig_fr.update_layout(
-                xaxis_title="Distance (m)",
-                yaxis_title="Frottement de roulement (N)",
+                xaxis_title=T["dist"][lang], 
+                yaxis_title=T["frot_y"][lang],
                 width=800,
                 height=600,
                 hovermode='x unified',
@@ -760,16 +800,14 @@ if load_btn:
                 showlegend=False
             )
 
-            fig_fr.update_traces(
-                hovertemplate="Distance: %{x:.1f} m<br>Frottement: %{y:.1f} N<extra></extra>"
-            )
+            fig_fr.update_traces(hovertemplate=T["frot_hover"][lang])
 
             st.plotly_chart(fig_fr, use_container_width=True)
 
             # -----------------------------------------------------------------
             #  FORCE MOTRICE
             # -----------------------------------------------------------------
-            st.subheader("Force motrice")
+            st.subheader(T["mot_title"][lang])
 
             fig_m = go.Figure()
 
@@ -778,13 +816,13 @@ if load_btn:
                 y=data["Force motrice moy"],
                 mode='lines',
                 line=dict(color='blue', width=2),
-                name='Force motrice moy'
+                name=T["mot_name"][lang]
             ))
 
             fig_m.add_trace(go.Scatter(
                 x=pd.concat([data["Distance"], data["Distance"][::-1]]),
                 y=pd.concat([data["Force motrice max"],
-                             data["Force motrice min"][::-1]]),
+                            data["Force motrice min"][::-1]]),
                 fill='toself',
                 fillcolor='rgba(0, 0, 255, 0.2)',
                 line=dict(color='rgba(255,255,255,0)'),
@@ -794,7 +832,7 @@ if load_btn:
             for _, row in df_corners.iterrows():
                 fig_m.add_vline(
                     x=row["Distance"],
-                    line=dict(color="white", dash="dash", width=1),
+                    line=dict(color="gray", dash="dash", width=1),
                     opacity=1
                 )
                 fig_m.add_annotation(
@@ -808,8 +846,8 @@ if load_btn:
                 )
 
             fig_m.update_layout(
-                xaxis_title="Distance (m)",
-                yaxis_title="Force motrice (N)",
+                xaxis_title=T["dist"][lang], 
+                yaxis_title=T["mot_y"][lang],
                 width=800,
                 height=600,
                 hovermode='x unified',
@@ -817,16 +855,14 @@ if load_btn:
                 showlegend=False
             )
 
-            fig_m.update_traces(
-                hovertemplate="Distance: %{x:.1f} m<br>Force motrice: %{y:.1f} N<extra></extra>"
-            )
+            fig_m.update_traces(hovertemplate=T["mot_hover"][lang])
 
             st.plotly_chart(fig_m, use_container_width=True)
 
             # -----------------------------------------------------------------
             #  FORCE DE FREINAGE
             # -----------------------------------------------------------------
-            st.subheader("Force de freinage")
+            st.subheader(T["frein_title"][lang])
 
             fig_f = go.Figure()
 
@@ -835,7 +871,7 @@ if load_btn:
                 y=data["Force de freinage moy"],
                 mode='lines',
                 line=dict(color='blue', width=2),
-                name='Freinage moy'
+                name=T["frein_name"][lang]
             ))
 
             fig_f.add_trace(go.Scatter(
@@ -851,7 +887,7 @@ if load_btn:
             for _, row in df_corners.iterrows():
                 fig_f.add_vline(
                     x=row["Distance"],
-                    line=dict(color="white", dash="dash", width=1),
+                    line=dict(color="gray", dash="dash", width=1),
                     opacity=1
                 )
                 fig_f.add_annotation(
@@ -865,8 +901,8 @@ if load_btn:
                 )
 
             fig_f.update_layout(
-                xaxis_title="Distance (m)",
-                yaxis_title="Force de freinage (N)",
+                xaxis_title=T["dist"][lang], 
+                yaxis_title=T["frein_y"][lang],
                 width=800,
                 height=600,
                 hovermode='x unified',
@@ -874,9 +910,7 @@ if load_btn:
                 showlegend=False
             )
 
-            fig_f.update_traces(
-                hovertemplate="Distance: %{x:.1f} m<br>Freinage: %{y:.1f} N<extra></extra>"
-            )
+            fig_f.update_traces(hovertemplate=T["frein_hover"][lang])
 
             st.plotly_chart(fig_f, use_container_width=True)
 
