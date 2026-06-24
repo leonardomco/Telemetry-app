@@ -11,8 +11,21 @@ def donnees (annee,circuit,session,pilote) -> pd.DataFrame:
     epreuve = fastf1.get_session(annee, circuit, session)
     epreuve.load(telemetry=True, laps=True, weather=True)
     circuit_info:pd.DataFrame = epreuve.get_circuit_info()
-    tour:pd.DataFrame = epreuve.laps.pick_drivers(pilote).pick_fastest().dropna()
+    driver_laps = epreuve.laps.pick_drivers(pilote)
+    if driver_laps.empty:
+        raise ValueError(f"Aucun tour trouvé pour le pilote {pilote} dans cette session.")
+
+    # 2. Pick the fastest lap safely
+    fastest_lap = driver_laps.pick_fastest()
+    if fastest_lap is None or fastest_lap.empty:
+        raise ValueError(f"Le pilote {pilote} n'a enregistré aucun temps valide.")
+
+    # 3. Safe to dropna now
+    tour = fastest_lap.dropna()
     pos = tour.get_pos_data().copy()
+
+    #tour:pd.DataFrame = epreuve.laps.pick_drivers(pilote).pick_fastest().dropna()
+    #pos = tour.get_pos_data().copy()
 
     df_corners = circuit_info.corners
     df_corners = df_corners.loc[:, ["Number", "Distance"]]
@@ -217,6 +230,7 @@ def donnees (annee,circuit,session,pilote) -> pd.DataFrame:
         telemetry.loc[no_brake_condition, 'Trainée_moy'])
     )
 
+
     telemetry.loc[no_brake_condition, 'Force motrice min'] = (
         (m_min * telemetry.loc[no_brake_condition, 'Accélération tangentielle']) +
         (telemetry.loc[no_brake_condition, 'Force de frottement de roulement max'] +
@@ -245,3 +259,4 @@ def donnees (annee,circuit,session,pilote) -> pd.DataFrame:
 
     
     return telemetry, rotated_track, circuit_info, df_corners
+
